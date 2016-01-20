@@ -23,5 +23,10 @@
             <groupId>com.oberasoftware</groupId>
             <artifactId>agent-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.oberasoftware</groupId>
+            <artifactId>home-youless</artifactId>
+        </dependency>
     </dependencies>
 </project>

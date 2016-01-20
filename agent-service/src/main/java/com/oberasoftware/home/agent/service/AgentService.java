@@ -1,12 +1,14 @@
 package com.oberasoftware.home.agent.service;
 
 import com.oberasoftware.base.BaseConfiguration;
+import com.oberasoftware.home.agent.core.AgentCoreConfiguration;
 import com.oberasoftware.home.agent.core.ExtensionServiceLoaderUtil;
 import com.oberasoftware.home.api.AutomationBus;
 import com.oberasoftware.home.api.exceptions.HomeAutomationException;
 import com.oberasoftware.home.api.exceptions.RuntimeHomeAutomationException;
 import com.oberasoftware.home.api.extensions.ExtensionManager;
 import com.oberasoftware.home.api.extensions.SpringExtension;
+import com.oberasoftware.home.core.mqtt.MQTTConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class, HibernateJpaAutoConfiguration.class, DataSourceAutoConfiguration.class})
-
+@Import(value = {AgentCoreConfiguration.class, MQTTConfiguration.class, BaseConfiguration.class})
 @ComponentScan
 public class AgentService {
     private static final Logger LOG = LoggerFactory.getLogger(AgentService.class);
