@@ -43,7 +43,7 @@ public class AgentBus implements AutomationBus, EventHandler {
 
     @Override
     public void publish(Event event) {
-        LOG.info("Receveid event: {}", event);
+        LOG.info("Received event: {}", event);
         mqttEventBus.publish(event);
     }
 

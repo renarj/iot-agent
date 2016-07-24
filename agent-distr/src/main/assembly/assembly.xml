@@ -9,7 +9,6 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>com.oberasoftware:home_youless</include>
                 <include>com.oberasoftware:agent-service</include>
             </includes>
             <binaries>

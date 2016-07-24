@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.oberasoftware</groupId>
-            <artifactId>home-youless</artifactId>
+            <artifactId>agent-service</artifactId>
         </dependency>
     </dependencies>
 
