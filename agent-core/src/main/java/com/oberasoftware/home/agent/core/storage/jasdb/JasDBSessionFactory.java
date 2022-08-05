@@ -1,14 +1,13 @@
 package com.oberasoftware.home.agent.core.storage.jasdb;
 
-import nl.renarj.jasdb.LocalDBSession;
-import nl.renarj.jasdb.api.DBSession;
-import nl.renarj.jasdb.core.exceptions.JasDBStorageException;
-import nl.renarj.jasdb.rest.client.RestDBSession;
+import com.oberasoftware.jasdb.api.exceptions.JasDBStorageException;
+import com.oberasoftware.jasdb.api.session.DBSession;
+import com.oberasoftware.jasdb.rest.client.RestDBSession;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import static nl.renarj.core.utilities.StringUtils.stringNotEmpty;
+import static com.oberasoftware.jasdb.core.utils.StringUtils.stringNotEmpty;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**

@@ -6,8 +6,9 @@
 
     <parent>
         <groupId>com.oberasoftware</groupId>
-        <artifactId>home-agent</artifactId>
+        <artifactId>iot-main</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>agent-core</artifactId>
@@ -17,15 +18,12 @@
     <dependencies>
         <dependency>
             <groupId>com.oberasoftware</groupId>
-            <artifactId>home-api</artifactId>
+            <artifactId>iot-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.oberasoftware</groupId>
-            <artifactId>jasdb_localservice</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.oberasoftware</groupId>
-            <artifactId>jasdb_restconnector</artifactId>
+            <artifactId>jasdb-restclient</artifactId>
         </dependency>
     </dependencies>
 </project>
