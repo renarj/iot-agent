@@ -1,14 +1,14 @@
 package com.oberasoftware.home.agent.core.storage.jasdb;
 
 import com.oberasoftware.home.agent.core.storage.AgentStorage;
-import com.oberasoftware.home.api.exceptions.RuntimeHomeAutomationException;
-import nl.renarj.jasdb.api.DBSession;
-import nl.renarj.jasdb.api.SimpleEntity;
-import nl.renarj.jasdb.api.model.EntityBag;
-import nl.renarj.jasdb.api.query.QueryBuilder;
-import nl.renarj.jasdb.api.query.QueryResult;
-import nl.renarj.jasdb.core.exceptions.JasDBException;
-import nl.renarj.jasdb.core.exceptions.JasDBStorageException;
+import com.oberasoftware.iot.core.exceptions.RuntimeIOTException;
+import com.oberasoftware.jasdb.api.exceptions.JasDBException;
+import com.oberasoftware.jasdb.api.session.DBSession;
+import com.oberasoftware.jasdb.api.session.Entity;
+import com.oberasoftware.jasdb.api.session.EntityBag;
+import com.oberasoftware.jasdb.api.session.query.QueryBuilder;
+import com.oberasoftware.jasdb.api.session.query.QueryResult;
+import com.oberasoftware.jasdb.core.SimpleEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class JasDBAgentStorage implements AgentStorage {
 
     @Override
     public String getValue(String key, String defaultValue) {
-        SimpleEntity entity = createOrGetAgentConfig();
+        Entity entity = createOrGetAgentConfig();
         if(entity.hasProperty(key)) {
             return entity.getValue(key);
         } else {
@@ -48,22 +48,22 @@ public class JasDBAgentStorage implements AgentStorage {
 
     @Override
     public void putValue(String key, String value) {
-        SimpleEntity entity = createOrGetAgentConfig();
-        entity.addProperty(key, value);
+        Entity entity = createOrGetAgentConfig();
+        entity.setProperty(key, value);
 
         try {
             persist(entity);
-        } catch (JasDBStorageException e) {
-            throw new RuntimeHomeAutomationException("Unable to store agent configuration value", e);
+        } catch (JasDBException e) {
+            throw new RuntimeIOTException("Unable to store agent configuration value", e);
         }
     }
 
-    private SimpleEntity createOrGetAgentConfig() {
+    private Entity createOrGetAgentConfig() {
         try {
             EntityBag bag = getBag();
             QueryResult result = bag.find(QueryBuilder.createBuilder().field("configurationItem").value("agent")).execute();
             if(result.hasNext()) {
-                SimpleEntity entity = result.next();
+                Entity entity = result.next();
                 LOG.debug("Found existing agent configuration: {}", entity);
                 return entity;
             } else {
@@ -73,20 +73,20 @@ public class JasDBAgentStorage implements AgentStorage {
                 return persist(bag, entity);
             }
         } catch(JasDBException e) {
-            throw new RuntimeHomeAutomationException("Unable to get agent configuration", e);
+            throw new RuntimeIOTException("Unable to get agent configuration", e);
         }
 
     }
 
-    private SimpleEntity persist(EntityBag bag, SimpleEntity entity) throws JasDBStorageException {
+    private Entity persist(EntityBag bag, Entity entity) throws JasDBException {
         return bag.persist(entity);
     }
 
-    private SimpleEntity persist(SimpleEntity entity) throws JasDBStorageException {
+    private Entity persist(Entity entity) throws JasDBException {
         return persist(getBag(), entity);
     }
 
-    private EntityBag getBag() throws JasDBStorageException {
+    private EntityBag getBag() throws JasDBException {
         DBSession session = jasDBSessionFactory.createSession();
         return session.createOrGetBag(DATA_BAG);
     }

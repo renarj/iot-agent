@@ -1,6 +1,6 @@
-package com.oberasoftware.home.agent.core;
+package com.oberasoftware.home.agent.core.extension;
 
-import com.oberasoftware.home.api.extensions.SpringExtension;
+import com.oberasoftware.iot.core.extensions.SpringExtension;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
